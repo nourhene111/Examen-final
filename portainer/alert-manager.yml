@@ -1,0 +1,25 @@
+ global:
+  resolve_timeout: 1m
+  slack_api_url: 'https://hooks.slack.com/services/!!!PUT_YOURS!!!'
+route:
+  receiver: lab-alert-manager
+  repeat_interval: 1m
+receivers:
+  - name: 'lab-alert-manager'
+    telegram_configs:
+      - bot_token: lab_token
+        api_url: https://api.telegram.org
+        chat_id: -12345678
+        parse_mode: ''
+        send_resolved: true
+    email_configs:
+      - to: 'lab.inbox@gmail.com'
+        from: 'lab.outbox@gmail.com'
+        smarthost: 'smtp.gmail.com:587'
+        auth_username: 'lab.outbox@gmail.com'
+        auth_identity: 'lab.outbox@gmail.com'
+        auth_password: 'AppPassword'
+        send_resolved: true
+    slack_configs:
+      - channel: '#monitoring-infrastructure'
+        send_resolved: true
